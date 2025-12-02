@@ -1,11 +1,4 @@
-// ___________________ Задание 1 ___________________
-
-// const user = { name: "Anna", age: 25 };
-// const admin = user;
-
-// admin.age = 30;
-
-// console.log(user.age); // 30
+// ___________________ Задание 1 ___________________// const user = { name: "Anna", age: 25 };// const admin = user;// admin.age = 30;// console.log(user.age); // 30
 
 // __________________________________________________
 
@@ -92,6 +85,21 @@
 
 // function mergeObjects(obj1, obj2) {
 //   return Object.assign({}, obj1, obj2);
+// }
+// function mergeObjects(obj1, obj2) {
+//   const res = {};
+
+//   for (let key in obj1) {
+//     const value = obj1[key];
+//     res[key] = value;
+//   }
+
+//   for (let key in obj2) {
+//     const value = obj2[key];
+//     res[key] = value;
+//   }
+
+//   return res;
 // }
 
 // const target = { a: 1, b: 2 };
