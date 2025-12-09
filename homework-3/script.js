@@ -105,11 +105,9 @@
 //   { name: "Сергей", score: 65 },
 // ];
 
-// const studentsSort = [];
-// let student = students.filter((item) => item.score >= 75);
-// studentsSort.push(student);
+// const student = students.filter((item) => item.score >= 75);
 // console.log("Выбраны студенты с оценкой больше или равно 75:");
-// console.log(studentsSort);
+// console.log(student);
 
 // const GPA =
 //   students.reduce((sum, student) => sum + student.score, 0) / students.length;
@@ -120,11 +118,7 @@
 // console.log("Не сдали тест:");
 // console.log(studentNeudCount);
 
-// const students2 = [];
-
-// for (let i = 0; i < students.length; i++) {
-//   students2.push(students[i]);
-// }
+// const students2 = [...students];
 
 // students2.sort((a, b) => {
 //   if (b.score !== a.score) {
