@@ -105,9 +105,11 @@
 //   { name: "Сергей", score: 65 },
 // ];
 
-// const student = students.filter((item) => item.score >= 75);
+// const studentsSort = [];
+// let student = students.filter((item) => item.score >= 75);
+// studentsSort.push(student);
 // console.log("Выбраны студенты с оценкой больше или равно 75:");
-// console.log(student);
+// console.log(studentsSort);
 
 // const GPA =
 //   students.reduce((sum, student) => sum + student.score, 0) / students.length;
@@ -118,7 +120,11 @@
 // console.log("Не сдали тест:");
 // console.log(studentNeudCount);
 
-// const students2 = [...students];
+// const students2 = [];
+
+// for (let i = 0; i < students.length; i++) {
+//   students2.push(students[i]);
+// }
 
 // students2.sort((a, b) => {
 //   if (b.score !== a.score) {
@@ -190,3 +196,155 @@
 // });
 
 // __________________________________________________
+
+// const arr = [1, 2, [3, [6, 5, 4], [123]], 55, [123123123], [2, [45, [0], 634]]];
+
+// function flatten(arr) {
+//   let result = [];
+//   for (let item of arr) {
+//     if (Array.isArray(item)) {
+//       result = result.concat(flatten(item));
+//     } else {
+//       result.push(item);
+//     }
+//   }
+//   return result;
+// }
+
+// console.log(flatten(arr));
+
+// function sumTo(n) {
+//   if (n === 1) {
+//     return n;
+//   } else {
+//     return n + sumTo(n - 1);
+//   }
+// }
+
+// console.log(sumTo(4));
+// ____________________________________
+
+// function factorial(n) {
+//   if (n === 0 || n === 1) {
+//     return 1;
+//   } else {
+//     return n * factorial(n - 1);
+//   }
+// }
+
+// console.log(factorial(4));
+// console.log(factorial(10));
+// console.log(factorial(15));
+
+// ____________________________________
+
+// function countDown(n) {
+//   if (n < 0) return;
+//   console.log(n);
+//   countDown(n - 1);
+// }
+
+// console.log(countDown(10));
+
+// ____________________________________
+
+// function power(base, exponent) {
+//   if (exponent === 0) {
+//     return 1;
+//   } else {
+//     return base * power(base, exponent - 1);
+//   }
+// }
+
+// console.log(power(2, 10));
+
+// ____________________________________
+
+// const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// function countItems(array) {
+//   if (array.length === 0) {
+//     return 0;
+//   } else {
+//     return 1 + countItems(array.slice(1));
+//   }
+// }
+
+// console.log(countItems(array));
+
+// ____________________________________
+
+// function isPalindrome(str) {
+//   if (str === "" || str.length === 1) {
+//     return true;
+//   }
+//   if (str[0] != str[str.length - 1]) {
+//     return false;
+//   } else {
+//     const inner = str.slice(1, -1);
+//     return isPalindrome(inner);
+//   }
+// }
+
+// console.log(isPalindrome("потоп"));
+
+// ____________________________________
+
+// function multiply(a, b) {
+//   if (b === 0) {
+//     return 0;
+//   } else {
+//     return a + multiply(a, b - 1);
+//   }
+// }
+
+// console.log(multiply(3, 1));
+
+// ____________________________________
+
+// const arr = [5, 7, 10, 21, 2, 1, 0];
+
+// function findMax(arr) {
+//   if (arr.length === 1) {
+//     return arr[0];
+//   }
+//   const first = arr[0];
+//   const rest = arr.slice(1);
+//   return Math.max(first, findMax(rest));
+// }
+
+// console.log(findMax(arr));
+
+// ____________________________________
+
+// function reverseString(str) {
+//   if (str === "" || str.length === 1) {
+//     return str;
+//   } else {
+//     return str[str.length - 1] + reverseString(str.slice(0, -1));
+//   }
+// }
+
+// console.log(reverseString("автобус"));
+
+// ____________________________________
+
+const arr = [5, 7, [10, 21], 2, [1, [0]]];
+
+function getDepth(arr) {
+  if (!Array.isArray(arr) || arr.length === 0) {
+    return 1;
+  }
+  let maxDepth = 1;
+  for (let item of arr) {
+    if (Array.isArray(item)) {
+      const depth = 1 + getDepth(item); // рекурсия!
+      if (depth > maxDepth) {
+        maxDepth = depth;
+      }
+    }
+  }
+  return maxDepth;
+}
+
+console.log(getDepth(arr));
