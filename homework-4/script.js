@@ -126,7 +126,6 @@ render(products, "table-container", {
 // ];
 
 // const newDiv = document.createElement("div");
-// newDiv.id = "new";
 // newDiv.style.backgroundColor = "#00ff00";
 // newDiv.style.padding = "150px";
 
