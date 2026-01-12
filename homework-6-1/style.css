@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.gallery {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.thumb {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.thumb.active,
+.thumb:hover {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+}
