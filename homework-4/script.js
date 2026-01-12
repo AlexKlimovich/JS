@@ -1674,23 +1674,23 @@
 //   console.log(city, rounded);
 // }
 
-const customers = [
-  { id: 1, name: "Алиса", city: "Минск", isVip: true, age: 28 },
-  { id: 2, name: "Боб", city: "Гомель", isVip: false, age: 35 },
-  { id: 3, name: "Карина", city: "Минск", isVip: false, age: 24 },
-  { id: 4, name: "Давид", city: "Брест", isVip: true, age: 31 },
-  { id: 5, name: "Елена", city: "Минск", isVip: false, age: 19 },
-];
+// const customers = [
+//   { id: 1, name: "Алиса", city: "Минск", isVip: true, age: 28 },
+//   { id: 2, name: "Боб", city: "Гомель", isVip: false, age: 35 },
+//   { id: 3, name: "Карина", city: "Минск", isVip: false, age: 24 },
+//   { id: 4, name: "Давид", city: "Брест", isVip: true, age: 31 },
+//   { id: 5, name: "Елена", city: "Минск", isVip: false, age: 19 },
+// ];
 
-const orders = [
-  { id: 101, customerId: 1, total: 45000, status: "доставлен" },
-  { id: 102, customerId: 1, total: 1200, status: "доставлен" },
-  { id: 103, customerId: 2, total: 850, status: "отменён" },
-  { id: 104, customerId: 3, total: 2100, status: "доставлен" },
-  { id: 105, customerId: 1, total: 500, status: "в пути" },
-  { id: 106, customerId: 4, total: 900, status: "доставлен" },
-  { id: 107, customerId: 5, total: 3000, status: "доставлен" },
-];
+// const orders = [
+//   { id: 101, customerId: 1, total: 45000, status: "доставлен" },
+//   { id: 102, customerId: 1, total: 1200, status: "доставлен" },
+//   { id: 103, customerId: 2, total: 850, status: "отменён" },
+//   { id: 104, customerId: 3, total: 2100, status: "доставлен" },
+//   { id: 105, customerId: 1, total: 500, status: "в пути" },
+//   { id: 106, customerId: 4, total: 900, status: "доставлен" },
+//   { id: 107, customerId: 5, total: 3000, status: "доставлен" },
+// ];
 
 // const notDelivered = orders.filter((p) => p.status !== "доставлен");
 // console.log(notDelivered);
@@ -1738,14 +1738,55 @@ const orders = [
 // }, {});
 // console.log(cityGroup);
 
-const allCustomersByCity = customers.reduce((acc, customer) => {
-  if (!acc[customer.city]) acc[customer.city] = [];
-  acc[customer.city].push(customer);
-  return acc;
-}, {});
+// const allCustomersByCity = customers.reduce((acc, customer) => {
+//   if (!acc[customer.city]) acc[customer.city] = [];
+//   acc[customer.city].push(customer);
+//   return acc;
+// }, {});
 
-const nonVipCities = Object.entries(allCustomersByCity)
-  .filter(([city, customers]) => customers.every((customer) => !customer.isVip))
-  .map(([city]) => city);
+// const nonVipCities = Object.entries(allCustomersByCity)
+//   .filter(([city, customers]) => customers.every((customer) => !customer.isVip))
+//   .map(([city]) => city);
 
-console.log(nonVipCities);
+// console.log(nonVipCities);
+
+// const customers = [
+//   { id: 1, name: "Алиса", city: "Минск", isVip: true, age: 28 },
+//   { id: 2, name: "Боб", city: "Гомель", isVip: false, age: 35 },
+//   { id: 3, name: "Карина", city: "Минск", isVip: false, age: 24 },
+//   { id: 4, name: "Давид", city: "Брест", isVip: true, age: 31 },
+//   { id: 5, name: "Елена", city: "Минск", isVip: false, age: 19 },
+// ];
+
+// const orders = [
+//   { id: 101, customerId: 1, total: 45000, status: "доставлен" },
+//   { id: 102, customerId: 1, total: 1200, status: "доставлен" },
+//   { id: 103, customerId: 2, total: 850, status: "отменён" },
+//   { id: 104, customerId: 3, total: 2100, status: "доставлен" },
+//   { id: 105, customerId: 1, total: 500, status: "в пути" },
+//   { id: 106, customerId: 4, total: 900, status: "доставлен" },
+//   { id: 107, customerId: 5, total: 3000, status: "доставлен" },
+// ];
+
+// const fullOrder = orders.reduce((customerId, order) => {
+//   if (!customerId[order.customerId]) {
+//     customerId[order.customerId] = "не доставлен";
+//   }
+
+//   if (order.status === "доставлен") {
+//     customerId[order.customerId] = "доставлен";
+//   }
+//   return customerId;
+// }, {});
+// console.log(fullOrder);
+
+// const notDeliveryId = Object.keys(fullOrder)
+//   .filter((key) => fullOrder[key] !== "доставлен")
+//   .map(Number);
+// console.log(notDeliveryId);
+
+// const customerName = customers
+//   .filter((customer) => notDeliveryId.includes(customer.id))
+//   .map((p) => p.name);
+
+// console.log(customerName);
