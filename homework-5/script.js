@@ -1,6 +1,6 @@
-const immutablePersons = [
+const images = [
   {
-    name: "Иван Петров",
+    srac: "Иван Петров",
     age: 45,
     education: "university",
     id: "1",
@@ -26,7 +26,7 @@ const immutablePersons = [
     id: "4",
     children: [
       {
-        name: "Дмитрий Иванов",
+        name: "Мария Иванов",
         age: 8,
         education: "school",
         id: "5",
@@ -158,7 +158,7 @@ emtyOption.textContent = "";
 const schoolOption = createEl("option");
 schoolOption.textContent = "school";
 const univerOption = createEl("option");
-univerOption.textContent = "univer";
+univerOption.textContent = "university";
 
 educationSelect.append(emtyOption, schoolOption, univerOption);
 // ------------------------------
@@ -167,84 +167,109 @@ document.body.append(input, childrenInput, educationSelect);
 
 const ul = createEl("ul");
 
+const filter = {
+  searchByParents: "",
+  searchByChildren: "",
+  searchByEducation: "",
+};
+
 input.addEventListener("keyup", (event) => {
-  renderPersons(immutablePersons, { searchByParents: event.target.value });
+  filter.searchByParents = event.target.value;
+  renderPersons(immutablePersons, filter);
 });
 
 childrenInput.addEventListener("keyup", (event) => {
-  renderPersons(immutablePersons, { searchByChildren: event.target.value });
+  filter.searchByChildren = event.target.value;
+  renderPersons(immutablePersons, filter);
 });
 
 educationSelect.addEventListener("change", (event) => {
-  renderPersons(immutablePersons, { searchByEducation: event.target.value });
+  filter.searchByEducation = event.target.value;
+  renderPersons(immutablePersons, filter);
 });
 
 const renderPersons = (persons, filter) => {
   ul.innerHTML = "";
-  let result = persons;
+  let result = structuredClone(persons);
 
-  if (filter) {
-    if (filter.searchByParents) {
-      result = result.filter((person) =>
-        person.name.toLowerCase().includes(filter.searchByParents.toLowerCase())
-      );
-    }
-    if (filter.searchByChildren) {
-      result = result.filter((person) =>
-        person.children?.some((child) =>
+  if (filter.searchByParents) {
+    result = result.filter((person) =>
+      person.name.toLowerCase().includes(filter.searchByParents.toLowerCase())
+    );
+  }
+
+  if (filter.searchByChildren) {
+    result.forEach((person) => {
+      if (person.children) {
+        person.children = person.children.filter((child) =>
           child.name
             .toLowerCase()
             .includes(filter.searchByChildren.toLowerCase())
-        )
-      );
-    }
-    if (filter.searchByEducation) {
-      // result = result.filter(
-      //   (person) =>
-      //     person.education.includes(filter.searchByEducation) ||
-      //     person.children?.some((child) =>
-      //       child.education.includes(filter.searchByEducation)
-      //     )
-      // );
-      // result = result
-      //   .map((person) => {
-      //     person.children = person.children?.filter((child) =>
-      //       child.education.includes(filter.searchByEducation)
-      //     );
-      //     if (
-      //       person.education.includes(filter.searchByEducation) ||
-      //       person.children?.length
-      //     ) {
-      //       return person;
-      //     }
-      //     return null;
-      //   })
-      //   .filter(Boolean);
-      result = filterTreeByEducation(result, filter.searchByEducation);
-    }
-    function filterTreeByEducation(persons, search) {
-      return persons
-        .map((person) => {
-          person.children = person.children
-            ? filterTreeByEducation(person.children, search)
-            : [];
+        );
+      }
+    });
+  }
 
-          if (
-            person.education.includes(filter.searchByEducation) ||
-            person.children.length
-          ) {
-            return person;
-          }
+  if (filter.searchByEducation) {
+    // result = result.filter(
+    //   (person) =>
+    //     person.education.includes(filter.searchByEducation) ||
+    //     person.children?.some((child) =>
+    //       child.education.includes(filter.searchByEducation)
+    //     )
+    // );
+    // result = result
+    //   .map((person) => {
+    //     person.children = person.children?.filter((child) =>
+    //       child.education.includes(filter.searchByEducation)
+    //     );
+    //     if (
+    //       person.education.includes(filter.searchByEducation) ||
+    //       person.children?.length
+    //     ) {
+    //       return person;
+    //     }
+    //     return null;
+    //   })
+    //   .filter(Boolean);
+    result = filterTreeByEducation(result, filter.searchByEducation);
+  }
+  function filterTreeByEducation(data, search) {
+    return data.filter((elem) => {
+      if (elem.education === search && (elem.children?.length ?? 0) === 0) {
+        return true;
+      }
 
-          return null;
-        })
-        .filter(Boolean);
-    }
+      if ((elem.children?.length ?? 0) > 0 && elem.education === search) {
+        elem.children = filterTreeByEducation(elem.children, search);
+
+        return true;
+      }
+
+      return false;
+    });
+
+    // return persons
+    //   .map((person) => {
+    //     person.children = person.children
+    //       ? filterTreeByEducation(person.children, search)
+    //       : [];
+
+    //     if (
+    //       person.education.includes(filter.searchByEducation) ||
+    //       person.children.length
+    //     ) {
+    //       return person;
+    //     }
+
+    //     return null;
+    //   })
+    //   .filter(Boolean);
   }
 
   result.forEach((person) => {
     const personLi = createEl("li");
-    personLi.textContent = person.name;
+    personLi.textContent = `Name: ${person.name}; Status: Parent; Education: ${person.education}`;
     ul.append(personLi);
 
     if (person.children) {
@@ -252,7 +277,7 @@ const renderPersons = (persons, filter) => {
 
       person.children.forEach((child) => {
         const childLi = createEl("li");
-        childLi.textContent = child.name;
+        childLi.textContent = `Name: ${child.name}; Status: Children; Education: ${child.education}`;
         childUl.append(childLi);
       });
 
@@ -261,7 +286,6 @@ const renderPersons = (persons, filter) => {
   });
 
   document.body.append(ul);
-  console.log(immutablePersons);
 };
 
-renderPersons(immutablePersons);
+renderPersons(immutablePersons, filter);
